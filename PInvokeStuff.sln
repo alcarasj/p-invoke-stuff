@@ -1,0 +1,25 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 25.0.1704.2
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PInvokeStuff", "PInvokeStuff.csproj", "{2EC25A6B-9421-4722-9504-7C1C5F91CE2E}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{2EC25A6B-9421-4722-9504-7C1C5F91CE2E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{2EC25A6B-9421-4722-9504-7C1C5F91CE2E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{2EC25A6B-9421-4722-9504-7C1C5F91CE2E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{2EC25A6B-9421-4722-9504-7C1C5F91CE2E}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {86B4FBA5-9EFA-43A9-A329-45CFF10ADD6A}
+	EndGlobalSection
+EndGlobal
