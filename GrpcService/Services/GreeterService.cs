@@ -1,6 +1,7 @@
 using Grpc.Core;
 using GrpcGreeterService;
 using System.Runtime.InteropServices;
+using System.Text;
 
 namespace GrpcService.Services
 {
@@ -17,10 +18,13 @@ namespace GrpcService.Services
         {
             try
             {
-                say_hello(request.Name);
+                var data = new Data();
+                data.name = request.Name;
+                data.greeting = string.Empty;
+                say_hello(ref data);
                 return Task.FromResult(new HelloReply
                 {
-                    Message = "Complete!"
+                    Message = data.greeting
                 });
             } 
             catch (Exception ex)
@@ -32,6 +36,14 @@ namespace GrpcService.Services
         }
 
         [DllImport("NativeStuff.dll")]
-        private static extern void say_hello(string name);
+        [return: MarshalAs(UnmanagedType.BStr)]
+        private static extern void say_hello(ref Data data);
+
+        [StructLayout(LayoutKind.Sequential, CharSet = CharSet.Ansi)]
+        public struct Data
+        {
+            public string name;
+            public string greeting;
+        }
     }
 }
