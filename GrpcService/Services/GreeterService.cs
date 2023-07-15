@@ -7,6 +7,7 @@ namespace GrpcService.Services
     public class GreeterService : Greeter.GreeterBase
     {
         private readonly ILogger<GreeterService> _logger;
+
         public GreeterService(ILogger<GreeterService> logger)
         {
             _logger = logger;
@@ -16,12 +17,13 @@ namespace GrpcService.Services
         {
             try
             {
-                var message = reverse($"Hello {request.Name}");
+                say_hello(request.Name);
                 return Task.FromResult(new HelloReply
                 {
-                    Message = message
+                    Message = "Complete!"
                 });
-            } catch (Exception ex)
+            } 
+            catch (Exception ex)
             {
                 var status = new Status(StatusCode.Internal, ex.ToString());
                 throw new RpcException(status);
@@ -30,6 +32,6 @@ namespace GrpcService.Services
         }
 
         [DllImport("NativeStuff.dll")]
-        private static extern string reverse(string str);
+        private static extern void say_hello(string name);
     }
 }

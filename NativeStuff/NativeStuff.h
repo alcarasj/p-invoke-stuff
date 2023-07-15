@@ -6,7 +6,7 @@
 extern "C" {
 #endif
 
-__declspec(dllexport) const std::string reverse(const std::string str);
+__declspec(dllexport) void say_hello(const char* name);
 
 #ifdef __cplusplus
 }

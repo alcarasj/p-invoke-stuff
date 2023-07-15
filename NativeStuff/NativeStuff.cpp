@@ -1,12 +1,8 @@
 #include "NativeStuff.h"
 #include <stdio.h>
 
-__declspec(dllexport) const std::string reverse(const std::string str) {
-	std::string result = "";
-	for (int i = str.size() - 1; i > 0; i--) {
-		result += str[i];
-	}
-	return result;
+__declspec(dllexport) void say_hello(const char* name) {
+	printf("Hello %s!\n", name);
 }
 
 int main() {
