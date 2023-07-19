@@ -1,5 +1,6 @@
 using Grpc.Core;
 using GrpcGreeterService;
+using System.Buffers;
 using System.Runtime.InteropServices;
 using System.Text;
 
@@ -13,18 +14,22 @@ namespace GrpcService.Services
         {
             _logger = logger;
         }
+        private class NativeMethods
+        {
+            [DllImport("NativeStuff.dll", CallingConvention = CallingConvention.Cdecl)]
+            [return: MarshalAs(UnmanagedType.BStr)]
+            internal static extern string say_hello([MarshalAs(UnmanagedType.BStr)] string name);
+        }
 
         public override Task<HelloReply> SayHello(HelloRequest request, ServerCallContext context)
         {
             try
             {
-                var data = new Data();
-                data.name = request.Name;
-                data.greeting = string.Empty;
-                say_hello(ref data);
+                var name = request.Name;
+                var greeting = NativeMethods.say_hello(name);
                 return Task.FromResult(new HelloReply
                 {
-                    Message = data.greeting
+                    Message = greeting
                 });
             } 
             catch (Exception ex)
@@ -33,17 +38,6 @@ namespace GrpcService.Services
                 throw new RpcException(status);
             }
 
-        }
-
-        [DllImport("NativeStuff.dll")]
-        [return: MarshalAs(UnmanagedType.BStr)]
-        private static extern void say_hello(ref Data data);
-
-        [StructLayout(LayoutKind.Sequential, CharSet = CharSet.Ansi)]
-        public struct Data
-        {
-            public string name;
-            public string greeting;
         }
     }
 }
