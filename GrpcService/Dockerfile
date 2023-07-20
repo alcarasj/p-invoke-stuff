@@ -1,22 +1,13 @@
-#See https://aka.ms/customizecontainer to learn how to customize your debug container and how Visual Studio uses this Dockerfile to build your images for faster debugging.
-
-FROM mcr.microsoft.com/dotnet/aspnet:6.0 AS base
-WORKDIR /app
-EXPOSE 80
-EXPOSE 443
-
-FROM mcr.microsoft.com/dotnet/sdk:6.0 AS build
+FROM mcr.microsoft.com/dotnet/sdk:6.0 as builder
 WORKDIR /src
-COPY ["GrpcService/GrpcService.csproj", "GrpcService/"]
-RUN dotnet restore "GrpcService/GrpcService.csproj"
-COPY . .
-WORKDIR "/src/GrpcService"
-RUN dotnet build "GrpcService.csproj" -c Release -o /app/build
+COPY ./GrpcService ./GrpcService
+RUN dotnet publish "GrpcService/GrpcService.csproj" -c Release -o /app /p:UseAppHost=false
+COPY ../NativeStuff/x64/Release /app
 
-FROM build AS publish
-RUN dotnet publish "GrpcService.csproj" -c Release -o /app/publish /p:UseAppHost=false
-
-FROM base AS final
+FROM mcr.microsoft.com/dotnet/aspnet:6.0
+EXPOSE 7001
+ENV ASPNETCORE_URLS=http://+:7001
 WORKDIR /app
-COPY --from=publish /app/publish .
-ENTRYPOINT ["dotnet", "GrpcService.dll"]
+COPY --from=builder /app /app
+WORKDIR /
+ENTRYPOINT ["dotnet", "/app/GrpcService.dll"]

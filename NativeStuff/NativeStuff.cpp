@@ -18,8 +18,8 @@ BSTR concat(BSTR a, BSTR b)
 
 __declspec(dllexport) BSTR say_hello(BSTR name)
 {
-	BSTR hello = ::SysAllocString(L"Hello ");
-	BSTR exclamationPoint = ::SysAllocString(L"!");
+	BSTR hello = SysAllocString(L"Hello ");
+	BSTR exclamationPoint = SysAllocString(L"!");
     BSTR greeting = concat(hello, name);
 
     return concat(greeting, exclamationPoint);
