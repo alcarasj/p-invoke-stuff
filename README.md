@@ -8,5 +8,5 @@ Remaining items to-do as of 20 Jul 2023:
 Requires .NET 6, Visual Studio 2022 and Docker to be installed.
 1. Open PS window and `cd` to repo root.
 2. Build the Docker image with `.\BuildDockerImage.ps1`
-3. Run the container with `docker run --name p-invoke-stuff -p 8090:7001 --rm p-invoke-stuff:latest`
+3. Run the container with `docker run --name p-invoke-stuff -p 8090:7001 --rm -d p-invoke-stuff:latest`
 4. Make a request using the client with `dotnet run --project .\GrpcClient\GrpcClient.csproj`
