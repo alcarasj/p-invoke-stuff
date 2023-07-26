@@ -1,10 +1,15 @@
 # p-invoke-stuff
 This is a ASP.NET gRPC service calling into native C++ code via [P/Invoke](https://learn.microsoft.com/en-us/dotnet/standard/native-interop/pinvoke). 
-Remaining items to-do as of 20 Jul 2023:
+Remaining items to-do as of 26 Jul 2023:
 
-- The gRPC service running on Docker cannot find the native DLL, even though they are in the same directory in the container.
+- Does not work in Docker running Linux containers.
 
-## Run using Docker
+## Run locally
+Requires .NET 6, Visual Studio 2022 and Docker to be installed.
+1. Open PS window and `cd` to repo root.
+2. `.\RunLocal.ps1`
+
+## Run using Windows containers on Docker
 Requires .NET 6, Visual Studio 2022 and Docker to be installed.
 1. Open PS window and `cd` to repo root.
 2. Build the Docker image with `.\BuildDockerImage.ps1`
