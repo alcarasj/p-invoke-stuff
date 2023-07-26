@@ -1,5 +1,6 @@
 ﻿#include "NativeStuff.h"
-#include <stdio.h>
+#include <string.h>
+#include <stdlib.h>
 
 __declspec(dllexport) char * say_hello(char * name)
 {
