@@ -1,4 +1,4 @@
-#include <comutil.h>
+﻿#include <comutil.h>
 #ifndef _NATIVESTUFF_H_
 #define _NATIVESTUFF_H_
 
@@ -6,7 +6,7 @@
 extern "C" {
 #endif
 
-__declspec(dllexport) BSTR say_hello(BSTR name);
+__declspec(dllexport) char * say_hello(char * name);
 
 #ifdef __cplusplus
 }

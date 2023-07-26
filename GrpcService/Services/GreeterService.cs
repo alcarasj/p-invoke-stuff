@@ -1,5 +1,6 @@
 using Grpc.Core;
 using GrpcGreeterService;
+using System;
 using System.Buffers;
 using System.Runtime.InteropServices;
 using System.Text;
@@ -16,9 +17,8 @@ namespace GrpcService.Services
         }
         private class NativeMethods
         {
-            [DllImport("NativeStuff.dll", CallingConvention = CallingConvention.Cdecl)]
-            [return: MarshalAs(UnmanagedType.BStr)]
-            internal static extern string say_hello([MarshalAs(UnmanagedType.BStr)] string name);
+            [DllImport("NativeStuff.dll")]
+            internal static extern IntPtr say_hello([MarshalAs(UnmanagedType.LPStr)] string name);
         }
 
         public override Task<HelloReply> SayHello(HelloRequest request, ServerCallContext context)
@@ -26,7 +26,9 @@ namespace GrpcService.Services
             try
             {
                 var name = request.Name;
-                var greeting = NativeMethods.say_hello(name);
+                var greetingIntPointer = NativeMethods.say_hello(name);
+                var greeting = System.Runtime.InteropServices.Marshal.PtrToStringAnsi(greetingIntPointer);
+
                 return Task.FromResult(new HelloReply
                 {
                     Message = greeting

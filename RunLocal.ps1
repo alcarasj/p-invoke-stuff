@@ -1,5 +1,9 @@
 $CurrentDirectory = Get-Location
 
+rm ./GrpcService/bin -r -force
+rm ./GrpcService/obj -r -force
+rm ./NativeStuff/x64 -r -force
+
 # Build NativeStuff C++ code into DLL using MSBuild.
 Import-Module "C:\Program Files\Microsoft Visual Studio\2022\Enterprise\Common7\Tools\Microsoft.VisualStudio.DevShell.dll"
 Enter-VsDevShell -VsInstallPath "C:\Program Files\Microsoft Visual Studio\2022\Enterprise"

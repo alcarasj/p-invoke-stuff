@@ -1,28 +1,16 @@
-#include "NativeStuff.h"
+﻿#include "NativeStuff.h"
 #include <stdio.h>
-#include <comutil.h>
 
-BSTR concat(BSTR a, BSTR b)
+__declspec(dllexport) char * say_hello(char * name)
 {
-    auto lengthA = SysStringLen(a);
-    auto lengthB = SysStringLen(b);
-
-    auto result = SysAllocStringLen(NULL, lengthA + lengthB);
-
-    memcpy(result, a, lengthA * sizeof(OLECHAR));
-    memcpy(result + lengthA, b, lengthB * sizeof(OLECHAR));
-
-    result[lengthA + lengthB] = 0;
-    return result;
-}
-
-__declspec(dllexport) BSTR say_hello(BSTR name)
-{
-	BSTR hello = SysAllocString(L"Hello ");
-	BSTR exclamationPoint = SysAllocString(L"!");
-    BSTR greeting = concat(hello, name);
-
-    return concat(greeting, exclamationPoint);
+	const char* hello = "Hello ";
+	const char* exclamationPoint = "!";
+	size_t greetingLength = strlen(hello) + strlen(name) + strlen(exclamationPoint) + 1;
+	char* greeting = (char *) malloc(greetingLength);
+	strcpy_s(greeting, greetingLength, hello);
+	strcat_s(greeting, greetingLength, name);
+	strcat_s(greeting, greetingLength, exclamationPoint);
+	return greeting;
 }
 
 int main() 
