@@ -8,7 +8,7 @@ FROM mcr.microsoft.com/dotnet/sdk:6.0.412-jammy-amd64 as dotnet-builder
 RUN apt update && apt install -y protobuf-compiler
 WORKDIR /src
 COPY ./GrpcService ./GrpcService
-RUN dotnet publish "GrpcService/GrpcService.csproj" -a linux-x64 -c Release -o /app /p:UseAppHost=false
+RUN dotnet publish "GrpcService/GrpcService.csproj" -c Release -o /app /p:UseAppHost=false
 COPY --from=cpp-builder /src/NativeStuff/NativeStuff.so /app
 
 FROM mcr.microsoft.com/dotnet/aspnet:6.0.20-jammy-amd64
