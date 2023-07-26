@@ -10,10 +10,11 @@ class Program
             throw new Exception("Please enter the localhost port where GrpcService is running.");
         }
 
-        // Set to port of GrpcService container.
+        var targetPort = args[0];
+        Console.WriteLine("Saying hello to the GrpcService at port " + targetPort + "...");
         using var channel = GrpcChannel.ForAddress($"http://localhost:{args[0]}");
         var client = new Greeter.GreeterClient(channel);
         var reply = client.SayHello(new HelloRequest { Name = "P/Invoke" });
-        Console.WriteLine("Greeting: " + reply.Message);
+        Console.WriteLine("Hooray! Greeting received from GrpcService: " + reply.Message);
     }
 }

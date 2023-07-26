@@ -17,7 +17,7 @@ namespace GrpcService.Services
         }
         private class NativeMethods
         {
-            [DllImport("NativeStuff.dll")]
+            [DllImport("NativeStuff.so")]
             internal static extern IntPtr say_hello([MarshalAs(UnmanagedType.LPStr)] string name);
         }
 

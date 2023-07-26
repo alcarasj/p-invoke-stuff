@@ -1,3 +1,3 @@
 ﻿extern "C" {
-  __declspec(dllexport) char * say_hello(char * name);
+  __attribute__((visibility("default"))) char * say_hello(char * name);
 }
